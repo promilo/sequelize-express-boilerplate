@@ -13,6 +13,20 @@ app.get('/puppies', function(req, res, next) {
   res.send(puppies);
 })
 
+app.get('/puppies/:id', function(req, res, next) {
+  var id = req.params.id;
+  var query = req.query;
+  var puppy = puppies[id];
+  console.log('puppy', puppy)
+
+  var responses = {}
+  Object.keys(query).map(function (key) {
+    responses[key] = puppy[key]
+  })
+
+  res.send(responses);
+})
+
 app.post('/puppies', function(req, res, next) {
   var puppy = req.body;
   console.log("puppy req.body", puppy);
