@@ -17,14 +17,17 @@ app.get('/puppies/:id', function(req, res, next) {
   var id = req.params.id;
   var query = req.query;
   var puppy = puppies[id];
-  console.log('puppy', puppy)
-
-  var responses = {}
-  Object.keys(query).map(function (key) {
-    responses[key] = puppy[key]
-  })
-
-  res.send(responses);
+  console.log(Object.keys(query).length);
+  var isEmptyQuery = Object.keys(query).length;
+  if (!isEmptyQuery) {
+    res.send(puppy)
+  } else {
+      var responses = {}
+      Object.keys(query).forEach(function (key) {
+        responses[key] = puppy[key]
+      })
+    res.send(responses);
+  }
 })
 
 app.post('/puppies', function(req, res, next) {
